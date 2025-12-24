@@ -1,12 +1,14 @@
-package cc.sighs.oneenoughenchantment;
+package com.sighs.oneenoughenchantment;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
 
 import java.util.HashMap;
 import java.util.List;
 
+@Mod.EventBusSubscriber(modid = Oneenoughenchantment.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class Config {
     private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
 
@@ -41,6 +43,7 @@ public class Config {
         return 1;
     }
     public static void updateCache() {
+        System.out.println("updated\n");
         HashMap<String, Integer> map = new HashMap<>();
         for (String b : RULES.get()) {
             String[] entry = b.split("=");

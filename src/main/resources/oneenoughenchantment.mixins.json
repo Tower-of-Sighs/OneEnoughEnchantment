@@ -1,7 +1,7 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "cc.sighs.oneenoughenchantment.mixin",
+  "package": "com.sighs.oneenoughenchantment.mixin",
   "compatibilityLevel": "JAVA_8",
   "refmap": "oneenoughenchantment.refmap.json",
   "mixins": [

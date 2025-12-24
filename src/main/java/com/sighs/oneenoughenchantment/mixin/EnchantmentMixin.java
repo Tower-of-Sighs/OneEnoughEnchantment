@@ -1,7 +1,8 @@
-package cc.sighs.oneenoughenchantment.mixin;
+package com.sighs.oneenoughenchantment.mixin;
 
-import cc.sighs.oneenoughenchantment.Config;
-import cc.sighs.oneenoughenchantment.Utils;
+import com.sighs.oneenoughenchantment.Config;
+import com.sighs.oneenoughenchantment.Utils;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -15,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class EnchantmentMixin {
     @Inject(method = "canEnchant", at = @At("HEAD"), cancellable = true)
     private void qq(ItemStack itemStack, CallbackInfoReturnable<Boolean> cir) {
-        ResourceLocation id = EnchantmentHelper.getEnchantmentId((Enchantment) (Object) this);
+        ResourceLocation id = BuiltInRegistries.ENCHANTMENT.getKey((Enchantment) (Object) this);
         if (Config.RECIPE.get() && Utils.getWeight(id) == 0) cir.setReturnValue(false);
     }
 }

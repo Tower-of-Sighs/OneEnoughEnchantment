@@ -1,4 +1,4 @@
-package cc.sighs.oneenoughenchantment.compat;
+package com.sighs.oneenoughenchantment.compat;
 
 import dev.latvian.mods.kubejs.KubeJSPlugin;
 import dev.latvian.mods.kubejs.script.BindingsEvent;

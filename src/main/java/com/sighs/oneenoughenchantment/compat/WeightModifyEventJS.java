@@ -1,27 +1,23 @@
-package cc.sighs.oneenoughenchantment.compat;
+package com.sighs.oneenoughenchantment.compat;
 
-import cc.sighs.oneenoughenchantment.Utils;
 import dev.latvian.mods.kubejs.server.ServerEventJS;
 import dev.latvian.mods.rhino.util.HideFromJS;
 import net.minecraft.server.MinecraftServer;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class WeightModifyEventJS extends ServerEventJS {
     @HideFromJS
-    public Map<String, Integer> weights;
+    public Map<String, Integer> weights = new HashMap<>();
 
-    public WeightModifyEventJS(MinecraftServer s) {
+    public WeightModifyEventJS(MinecraftServer s, Map<String, Integer> weights) {
         super(s);
-        weights = Map.copyOf(Utils.getCache());
+        weights.forEach(this::setWeight);
     }
 
     public void setWeight(String id, int weight) {
         weights.put(id, weight);
-    }
-
-    public Map<String, Integer> getWeights() {
-        return weights;
     }
 
     public int getWeight(String id) {
