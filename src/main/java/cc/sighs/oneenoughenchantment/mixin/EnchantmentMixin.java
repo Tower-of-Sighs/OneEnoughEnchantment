@@ -1,6 +1,7 @@
 package cc.sighs.oneenoughenchantment.mixin;
 
 import cc.sighs.oneenoughenchantment.Config;
+import cc.sighs.oneenoughenchantment.Utils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -15,6 +16,6 @@ public class EnchantmentMixin {
     @Inject(method = "canEnchant", at = @At("HEAD"), cancellable = true)
     private void qq(ItemStack itemStack, CallbackInfoReturnable<Boolean> cir) {
         ResourceLocation id = EnchantmentHelper.getEnchantmentId((Enchantment) (Object) this);
-        if (id != null && Config.getWeight(id.toString()) == 0) cir.setReturnValue(false);
+        if (Config.RECIPE.get() && Utils.getWeight(id) == 0) cir.setReturnValue(false);
     }
 }

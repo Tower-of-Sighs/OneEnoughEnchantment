@@ -1,6 +1,7 @@
 package cc.sighs.oneenoughenchantment.mixin;
 
 import cc.sighs.oneenoughenchantment.Config;
+import cc.sighs.oneenoughenchantment.Utils;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -28,7 +29,7 @@ public abstract class EnchantmentHelperMixin {
     private static <E> boolean modify(List<E> instance, E e) {
         if (e instanceof EnchantmentInstance enchantment) {
             ResourceLocation id = getEnchantmentId(enchantment.enchantment);
-            if (id != null) for (int i = 0; i < Config.getWeight(id.toString()); i++) instance.add(e);
+            for (int i = 0; i < Utils.getWeight(id); i++) instance.add(e);
         }
         return false;
     }
@@ -36,6 +37,6 @@ public abstract class EnchantmentHelperMixin {
     @Inject(method = "getEnchantmentId(Lnet/minecraft/world/item/enchantment/Enchantment;)Lnet/minecraft/resources/ResourceLocation;", at = @At("HEAD"), cancellable = true)
     private static void aaa(Enchantment enchantment, CallbackInfoReturnable<ResourceLocation> cir) {
         ResourceLocation id = BuiltInRegistries.ENCHANTMENT.getKey(enchantment);
-        if (id != null && Config.getWeight(id.toString()) == 0) cir.setReturnValue(null);
+        if (Config.DELETE.get() && Utils.getWeight(id) == 0) cir.setReturnValue(null);
     }
 }

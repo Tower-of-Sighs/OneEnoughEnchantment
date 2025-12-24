@@ -1,7 +1,10 @@
 package cc.sighs.oneenoughenchantment;
 
 import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.event.config.ModConfigEvent;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class Config {
@@ -13,8 +16,22 @@ public class Config {
                     List.of(),
                     entry -> entry instanceof String
             );
+    public static final ForgeConfigSpec.BooleanValue RECIPE = BUILDER
+            .comment("刷新权重为0的附魔是否移除可用配方，如铁砧配方，关闭后对应的附魔书将无法使用，也不会在JEI中看到用途，但此类附魔依旧可以存在，可以通过指令等方式为物品附魔。")
+            .define("dropRecipe", true);
+
+    public static final ForgeConfigSpec.BooleanValue DELETE = BUILDER
+            .comment("刷新权重为0的附魔是否完全被移除，开启后，创造模式物品栏和JEI等都会查不到，且会影响到已有此附魔的物品。")
+            .define("deepDelete", true);
 
     static final ForgeConfigSpec SPEC = BUILDER.build();
+
+    @SubscribeEvent
+    public static void listen(ModConfigEvent event) {
+        if (event.getConfig().getModId().equals(Oneenoughenchantment.MODID)) {
+            updateCache();
+        }
+    }
 
     public static int getWeight(String id) {
         for (String b : RULES.get()) {
@@ -22,5 +39,15 @@ public class Config {
             if (entry[0].equals(id)) return Integer.parseInt(entry[1]);
         }
         return 1;
+    }
+    public static void updateCache() {
+        HashMap<String, Integer> map = new HashMap<>();
+        for (String b : RULES.get()) {
+            String[] entry = b.split("=");
+            if (entry.length == 2) {
+                map.put(entry[0], Integer.parseInt(entry[1]));
+            }
+        }
+        Utils.setCache(map);
     }
 }
