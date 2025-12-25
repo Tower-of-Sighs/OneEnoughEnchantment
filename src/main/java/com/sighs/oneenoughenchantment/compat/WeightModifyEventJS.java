@@ -1,5 +1,6 @@
 package com.sighs.oneenoughenchantment.compat;
 
+import com.sighs.oneenoughenchantment.Utils;
 import dev.latvian.mods.kubejs.server.ServerEventJS;
 import dev.latvian.mods.rhino.util.HideFromJS;
 import net.minecraft.server.MinecraftServer;
@@ -21,6 +22,6 @@ public class WeightModifyEventJS extends ServerEventJS {
     }
 
     public int getWeight(String id) {
-        return weights.getOrDefault(id, 1);
+        return weights.getOrDefault(id, Utils.getOriginWeight(id));
     }
 }

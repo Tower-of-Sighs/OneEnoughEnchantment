@@ -27,6 +27,6 @@ public class KubeJSCompat {
         if (INSTALLED) {
             return KubeJSCompatInner.getWeight(id);
         }
-        return Utils.getCache().getOrDefault(id, 1);
+        return Utils.getCache().getOrDefault(id, Utils.getOriginWeight(id));
     }
 }

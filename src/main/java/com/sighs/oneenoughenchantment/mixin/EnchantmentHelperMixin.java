@@ -19,18 +19,7 @@ import java.util.List;
 public abstract class EnchantmentHelperMixin {
     @Redirect(method = "getAvailableEnchantmentResults", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/enchantment/Enchantment;isDiscoverable()Z"))
     private static boolean modify(Enchantment enchantment) {
-        ResourceLocation id = BuiltInRegistries.ENCHANTMENT.getKey(enchantment);
-        int weight = Utils.getWeight(id);
-        return enchantment.isDiscoverable() && weight > 0;
-    }
-
-    @Redirect(method = "getAvailableEnchantmentResults", at = @At(value = "INVOKE", target = "Ljava/util/List;add(Ljava/lang/Object;)Z"))
-    private static <E> boolean modify(List<E> instance, E e) {
-        if (e instanceof EnchantmentInstance enchantment) {
-            ResourceLocation id = BuiltInRegistries.ENCHANTMENT.getKey(enchantment.enchantment);
-            for (int i = 0; i < Utils.getWeight(id); i++) instance.add(e);
-        }
-        return false;
+        return enchantment.isDiscoverable() && Utils.getWeight(enchantment) > 0;
     }
 
     @Inject(method = "getEnchantmentId*", at = @At("RETURN"), cancellable = true)

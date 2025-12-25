@@ -6,6 +6,7 @@
   "refmap": "oneenoughenchantment.refmap.json",
   "mixins": [
     "EnchantmentHelperMixin",
+    "EnchantmentInstanceMixin",
     "EnchantmentMixin"
   ],
   "client": [

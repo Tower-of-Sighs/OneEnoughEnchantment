@@ -1,6 +1,8 @@
 package com.sighs.oneenoughenchantment;
 
 import com.sighs.oneenoughenchantment.compat.KubeJSCompat;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -21,6 +23,11 @@ public class Utils {
         Utils.cache = cache;
     }
 
+    public static int getOriginWeight(String id) {
+        Enchantment enchantment = BuiltInRegistries.ENCHANTMENT.get(new ResourceLocation(id));
+        return enchantment == null ? 0 : enchantment.getRarity().getWeight();
+    }
+
     public static int getWeight(String id) {
         return KubeJSCompat.getWeight(id);
     }
@@ -30,11 +37,16 @@ public class Utils {
         return 1;
     }
 
-    public static String getHandEnchantment(Player player) {
+    public static int getWeight(Enchantment enchantment) {
+        return getWeight(BuiltInRegistries.ENCHANTMENT.getKey(enchantment));
+    }
+
+    public static String getAllEnchantment() {
         List<String> result = new ArrayList<>();
-        for (Enchantment enchantment : player.getMainHandItem().getAllEnchantments().keySet()) {
-            ResourceLocation id = EnchantmentHelper.getEnchantmentId(enchantment);
-            if (id != null) result.add(id.toString());
+        for (Enchantment enchantment : BuiltInRegistries.ENCHANTMENT) {
+            ResourceLocation id = BuiltInRegistries.ENCHANTMENT.getKey(enchantment);
+            String name = Component.translatable(enchantment.getDescriptionId()).getString();
+            if (id != null) result.add(id + "(" + name + ")=" + getWeight(id));
         }
         return toJsonArray(result);
     }

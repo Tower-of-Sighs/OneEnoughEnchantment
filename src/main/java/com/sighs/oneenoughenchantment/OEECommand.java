@@ -14,10 +14,10 @@ public class OEECommand {
                 Commands.literal("oee")
                         .requires(source -> source.hasPermission(0));
 
-        BiomeCommand.then(Commands.literal("hand").executes(context -> {
+        BiomeCommand.then(Commands.literal("all").executes(context -> {
             ServerPlayer player = context.getSource().getPlayer();
             if (player != null) {
-                String result = Utils.getHandEnchantment(player);
+                String result = Utils.getAllEnchantment();
                 sendBasicCopyMessage(player, Component.translatable("message.oee.copy").getString() + " [...]", result);
             }
             return 1;
