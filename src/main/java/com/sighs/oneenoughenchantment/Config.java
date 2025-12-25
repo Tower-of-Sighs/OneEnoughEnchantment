@@ -1,11 +1,8 @@
 package com.sighs.oneenoughenchantment;
 
 import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.config.ModConfigEvent;
 
-import java.util.HashMap;
 import java.util.List;
 
 @Mod.EventBusSubscriber(modid = Oneenoughenchantment.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -28,29 +25,11 @@ public class Config {
 
     static final ForgeConfigSpec SPEC = BUILDER.build();
 
-    @SubscribeEvent
-    public static void listen(ModConfigEvent event) {
-        if (event.getConfig().getModId().equals(Oneenoughenchantment.MODID)) {
-            updateCache();
-        }
-    }
-
     public static int getWeight(String id) {
         for (String b : RULES.get()) {
             String[] entry = b.split("=");
             if (entry[0].equals(id)) return Integer.parseInt(entry[1]);
         }
-        return 1;
-    }
-    public static void updateCache() {
-        System.out.println("updated\n");
-        HashMap<String, Integer> map = new HashMap<>();
-        for (String b : RULES.get()) {
-            String[] entry = b.split("=");
-            if (entry.length == 2) {
-                map.put(entry[0], Integer.parseInt(entry[1]));
-            }
-        }
-        Utils.setCache(map);
+        return Utils.getOriginWeight(id);
     }
 }

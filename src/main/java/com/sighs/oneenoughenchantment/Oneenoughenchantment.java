@@ -16,9 +16,4 @@ public class Oneenoughenchantment {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
         MinecraftForge.EVENT_BUS.register(this);
     }
-
-    @SubscribeEvent
-    public void onRegisterCommands(RegisterCommandsEvent event) {
-        OEECommand.register(event.getDispatcher());
-    }
 }

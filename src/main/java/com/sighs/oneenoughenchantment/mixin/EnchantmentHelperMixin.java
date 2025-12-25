@@ -2,18 +2,14 @@ package com.sighs.oneenoughenchantment.mixin;
 
 import com.sighs.oneenoughenchantment.Config;
 import com.sighs.oneenoughenchantment.Utils;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import java.util.List;
 
 @Mixin(value = EnchantmentHelper.class)
 public abstract class EnchantmentHelperMixin {
