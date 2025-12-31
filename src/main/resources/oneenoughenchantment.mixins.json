@@ -1,0 +1,21 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.sighs.oneenoughenchantment.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "AnvilRecipeMakerMixin",
+    "EnchantmentHelperMixin",
+    "EnchantmentInstanceMixin",
+    "EnchantmentMixin",
+    "ItemEnchantmentsMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}
